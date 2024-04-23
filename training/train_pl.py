@@ -11,14 +11,14 @@ from lightning.pytorch.callbacks import LearningRateMonitor
 from lightning.pytorch.strategies import DeepSpeedStrategy
 from transformers import HfArgumentParser
 from config import global_args
-from data_utils import NN_DataHelper, train_info_args, get_deepspeed_config
-from aigc_zoo.model_zoo.moss.llm_model import MyTransformer,MossTokenizer,MossConfig,PetlArguments,PromptArguments
+from data_utils import NN_DataHelper, config_args, get_deepspeed_config
+from deep_training.zoo.model_zoo.moss.llm_model import MyTransformer,MossTokenizer,MossConfig,PetlArguments,PromptArguments
 
 assert global_args["trainer_backend"] == "pl"
 
 def main():
     parser = HfArgumentParser((ModelArguments, TrainingArguments, DataArguments, PetlArguments,PromptArguments))
-    model_args, training_args, data_args, lora_args,prompt_args = parser.parse_dict(train_info_args)
+    model_args, training_args, data_args, lora_args,prompt_args = parser.parse_dict(config_args)
     lora_args = lora_args.config
     prompt_args = prompt_args.config
 
